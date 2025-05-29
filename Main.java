@@ -12,6 +12,9 @@ public class Main {
             case "init":
                 Groot.init();
                 break;
+            case "remove":
+                Groot.removeRepo();
+                break;
             default:
                 System.out.println("Unknown command: " + command);
         }

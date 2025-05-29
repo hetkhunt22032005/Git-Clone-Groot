@@ -24,4 +24,39 @@ public class Groot {
             System.out.println("Failed to create .groot directory.");
         }
     }
+
+    public static void removeRepo() {
+        File dir = new File(".groot");
+        if (!dir.exists() || !dir.isDirectory()) {
+            System.out.println("Error: No such repository or Directory Exist.");
+            return;
+        }
+        System.out.println("Removing .groot repository...");
+        if (deleteDir(dir)) {
+            System.out.println(".groot repository successfully removed.");
+        } else {
+            System.out.println("Error: Failed to remove repository");
+        }
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (!dir.exists()) {
+            return false;
+        }
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    if (!deleteDir(file)) { // recursively delete subdirectory
+                        return false;
+                    }
+                } else {
+                    if (!file.delete()) { // delete file
+                        return false;
+                    }
+                }
+            }
+        }
+        return dir.delete();
+    }
 }
